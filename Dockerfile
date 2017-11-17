@@ -33,4 +33,5 @@ COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
 EXPOSE 80
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-    
+
+CMD ["/usr/bin/supervisord"]
