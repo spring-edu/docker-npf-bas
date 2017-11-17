@@ -22,4 +22,15 @@ RUN apt-get update \
     && apt-get remove -y --purge software-properties-common \
     && apt-get -y autoremove \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && echo "daemon off;" >> /etc/nginx/nginx.conf \
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
+COPY default /etc/nginx/sites-available/default
+COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
+
+EXPOSE 80
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+    
