@@ -11,7 +11,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
-    && apt-get install -y nginx curl zip unzip git software-properties-common supervisor sqlite3 vim mysql-client\
+    && apt-get install -y nginx curl zip unzip git software-properties-common supervisor sqlite3 vim mysql-client cron\
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
     && apt-get install -y php7.1-fpm php7.1-cli php7.1-mcrypt php7.1-gd php7.1-mysql \
@@ -29,6 +29,9 @@ RUN apt-get update \
 
 COPY default /etc/nginx/sites-available/default
 COPY php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf
+
+# Set up cron
+RUN echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" | crontab -
 
 EXPOSE 80
 
