@@ -1,7 +1,5 @@
 FROM ubuntu:16.04
 
-MAINTAINER Kevin Guo
-
 ENV GOSU_VERSION 1.7
 RUN set -x \
     && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
