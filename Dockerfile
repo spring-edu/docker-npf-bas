@@ -39,6 +39,11 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 COPY default /etc/nginx/sites-available/default
 COPY php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
 
+RUN curl -sL https://deb.nodesource.com/setup_10.x -o /var/nodesource_setup.sh \
+    && chmod +x /var/nodesource_setup.sh \
+    && /var/nodesource_setup.sh \
+    && apt-get install -y nodejs
+
 # Set up cron
 RUN echo "* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1" | crontab -
 
