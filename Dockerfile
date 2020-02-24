@@ -37,6 +37,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
 COPY default /etc/nginx/sites-available/default
+COPY php.ini /etc/php/7.2/fpm/php.ini
 COPY php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x -o /var/nodesource_setup.sh \
